@@ -1,14 +1,22 @@
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 
+// Player1's x and y coordinates
+let playerOneX = 10;
+let playerOneY = 265;
+
+let playerTwoX = 780;
+let playerTwoY = 265;
+
 function updateCanvas() {
     // draw the canvas every 30 seconds
     // Left Paddle
     ctx.fillStyle = "white";
-    ctx.fillRect(10, 265, 10, 75);
+    ctx.fillRect(playerOneX, playerOneY, 10, 75);
+
     // Right Paddle
     ctx.fillStyle = "white";
-    ctx.fillRect(780, 265, 10, 75);
+    ctx.fillRect(playerTwoX, playerTwoY, 10, 75);
 
     // Pong ball
     ctx.fillStyle = "white";
@@ -28,10 +36,6 @@ function updateCanvas() {
     ctx.closePath();
 }
 setInterval(updateCanvas, 1000);
-
-// Player1's x and y coordinates
-let playerOneX = 0;
-let playerOneY = 0;
 
 // Add event handler to record arrow key presses
 document.body.addEventListener('keydown', function (e) {
