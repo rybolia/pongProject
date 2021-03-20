@@ -35,7 +35,7 @@ function updateCanvas() {
     ctx.stroke();
     ctx.closePath();
 }
-setInterval(updateCanvas, 1000);
+setInterval(updateCanvas, 20);
 
 // Add event handler to record arrow key presses
 document.body.addEventListener('keydown', function (e) {
