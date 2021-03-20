@@ -2,48 +2,86 @@ let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 
 // Player1's x and y coordinates
-let playerOneX = 10;
-let playerOneY = 265;
+let leftPaddleX = 10;
+let leftPaddleY = 265;
 
-let playerTwoX = 780;
-let playerTwoY = 265;
+// Player2's x and y coordinates
+let rightPaddleX = 780;
+let rightPaddleY = 265;
 
-function updateCanvas() {
-    // draw the canvas every 30 seconds
+// Height and Weight of both paddles
+let paddleWidth = 10;
+let paddleHeight = 75;
+
+let UpArrowPressed = false;
+let DownArrowPressed = false;
+
+function drawLeftPaddle() {
     // Left Paddle
     ctx.fillStyle = "white";
-    ctx.fillRect(playerOneX, playerOneY, 10, 75);
+    ctx.fillRect(leftPaddleX, leftPaddleY, paddleWidth, paddleHeight);
+}
 
+function drawRightPaddle() {
     // Right Paddle
     ctx.fillStyle = "white";
-    ctx.fillRect(playerTwoX, playerTwoY, 10, 75);
+    ctx.fillRect(rightPaddleX, rightPaddleY, paddleWidth, paddleHeight);
+}
 
+function drawBall() {
     // Pong ball
     ctx.fillStyle = "white";
     ctx.beginPath();
     ctx.arc(400, 300, 7, 0, 2 * Math.PI);
     ctx.closePath();
     ctx.fill();
+}
 
+function drawMidLine() {
     // Middle Line
     // setLineDash, separation size of space between lines
     ctx.strokeStyle = "white";
     ctx.beginPath();
     ctx.setLineDash([10]);
-    ctx.moveTo(400, 0);
-    ctx.lineTo(400, 600);
+    ctx.moveTo(c.width/2, 0);
+    ctx.lineTo(c.width/2, c.height);
     ctx.stroke();
     ctx.closePath();
 }
-setInterval(updateCanvas, 20);
 
 // Add event handler to record arrow key presses
-document.body.addEventListener('keydown', function (e) {
+window.addEventListener('keydown', function (e) {
     let key = e.code;
 
     if (key == "ArrowUp") {
-        console.log("UP ARROW KEY");
+        UpArrowPressed = true;
     } else if (key == "ArrowDown") {
-        console.log("DOWN ARROW KEY");
+        DownArrowPressed = true;
     }
 })
+
+window.addEventListener('keyup', function (e) {
+    let key = e.code;
+
+    if (key == "ArrowUp") {
+        UpArrowPressed = false;
+    } else if (key == "ArrowDown") {
+        DownArrowPressed = false;
+    }    
+})
+
+function updateCanvas() {
+    // draw the canvas every 20 milliseconds
+    ctx.clearRect(0, 0, c.width, c.height);
+    drawLeftPaddle();
+    drawRightPaddle();
+    drawMidLine();
+    drawBall();
+
+    if (UpArrowPressed) {
+        leftPaddleY -= 9;
+    } else if (DownArrowPressed) {
+        leftPaddleY += 9;
+    }
+}
+setInterval(updateCanvas, 20);
