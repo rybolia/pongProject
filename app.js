@@ -43,32 +43,11 @@ function drawMidLine() {
     ctx.strokeStyle = "white";
     ctx.beginPath();
     ctx.setLineDash([10]);
-    ctx.moveTo(c.width/2, 0);
-    ctx.lineTo(c.width/2, c.height);
+    ctx.moveTo(c.width / 2, 0);
+    ctx.lineTo(c.width / 2, c.height);
     ctx.stroke();
     ctx.closePath();
 }
-
-// Add event handler to record arrow key presses
-window.addEventListener('keydown', function (e) {
-    let key = e.code;
-
-    if (key == "ArrowUp") {
-        UpArrowPressed = true;
-    } else if (key == "ArrowDown") {
-        DownArrowPressed = true;
-    }
-})
-
-window.addEventListener('keyup', function (e) {
-    let key = e.code;
-
-    if (key == "ArrowUp") {
-        UpArrowPressed = false;
-    } else if (key == "ArrowDown") {
-        DownArrowPressed = false;
-    }    
-})
 
 function updateCanvas() {
     // draw the canvas every 20 milliseconds
@@ -77,6 +56,27 @@ function updateCanvas() {
     drawRightPaddle();
     drawMidLine();
     drawBall();
+
+    // Add event handler to record arrow key presses
+    window.addEventListener('keydown', function (e) {
+        let key = e.code;
+
+        if (key == "ArrowUp") {
+            UpArrowPressed = true;
+        } else if (key == "ArrowDown") {
+            DownArrowPressed = true;
+        }
+    })
+
+    window.addEventListener('keyup', function (e) {
+        let key = e.code;
+
+        if (key == "ArrowUp") {
+            UpArrowPressed = false;
+        } else if (key == "ArrowDown") {
+            DownArrowPressed = false;
+        }
+    })
 
     if (UpArrowPressed) {
         leftPaddleY -= 9;
