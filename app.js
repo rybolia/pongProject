@@ -79,9 +79,15 @@ function updateCanvas() {
     })
 
     if (UpArrowPressed) {
-        leftPaddleY -= 9;
+        leftPaddleY -= 7;
+        if (leftPaddleY < 0) {
+            leftPaddleY = 0;
+        }
     } else if (DownArrowPressed) {
-        leftPaddleY += 9;
+        leftPaddleY += 7;
+        if (leftPaddleY + paddleHeight > c.height) {
+            leftPaddleY = c.height - paddleHeight;
+        }
     }
 }
 setInterval(updateCanvas, 20);
