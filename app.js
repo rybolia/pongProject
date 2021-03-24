@@ -15,6 +15,8 @@ let paddleHeight = 75;
 
 let UpArrowPressed = false;
 let DownArrowPressed = false;
+let wKeyIsPressed = false;
+let sKeyIsPressed = false;
 
 function drawLeftPaddle() {
     // Left Paddle
@@ -61,7 +63,11 @@ function updateCanvas() {
     window.addEventListener('keydown', function (e) {
         let key = e.code;
 
-        if (key == "ArrowUp") {
+        if (key == "KeyW") {
+            wKeyIsPressed = true;
+        } else if (key == "KeyS") {
+            sKeyIsPressed = true;
+        } else if (key == "ArrowUp") {
             UpArrowPressed = true;
         } else if (key == "ArrowDown") {
             DownArrowPressed = true;
@@ -71,22 +77,36 @@ function updateCanvas() {
     window.addEventListener('keyup', function (e) {
         let key = e.code;
 
-        if (key == "ArrowUp") {
+        if (key == "KeyW") {
+            wKeyIsPressed = false;
+        } else if (key == "KeyS") {
+            sKeyIsPressed = false;
+        } else if (key == "ArrowUp") {
             UpArrowPressed = false;
         } else if (key == "ArrowDown") {
             DownArrowPressed = false;
         }
     })
 
-    if (UpArrowPressed) {
+    if (wKeyIsPressed) {
         leftPaddleY -= 7;
         if (leftPaddleY < 0) {
             leftPaddleY = 0;
         }
-    } else if (DownArrowPressed) {
+    } else if (sKeyIsPressed) {
         leftPaddleY += 7;
         if (leftPaddleY + paddleHeight > c.height) {
             leftPaddleY = c.height - paddleHeight;
+        }
+    } else if (UpArrowPressed) {
+        rightPaddleY -= 7;
+        if (rightPaddleY < 0) {
+            rightPaddleY = 0;
+        }
+    } else if (DownArrowPressed) {
+        rightPaddleY += 7;
+        if (rightPaddleY + paddleHeight > c.height) {
+            rightPaddleY = c.height - paddleHeight;
         }
     }
 }
